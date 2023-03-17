@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>溢出项布局</title>
+    <style>
+        body{
+            margin:0;
+        }
+
+        /* 1弹性 */
+        /* 1、由于弹性子项flex-shrink默认是1超过不会溢出，则改为设置0溢出出现滚动条 */
+        .main{
+            height:100px;
+            background:skyblue;
+            display: flex;
+            align-items: center;
+        }
+        .main div{
+            width:100px;
+            height:80px;
+            background:pink;
+            margin-right:10px;
+            flex-shrink: 0;
+        }
+
+        /* 2浮动 */
+        /* 1、需要加二级容器 */
+        /* 2、子元素设置左浮动并且计算需要加大的二级容器的宽度，让其中的子元素能够不换行 */
+        /* .main{
+            height:100px;
+            background:skyblue;
+        }
+        .main section{
+            width:2000px;
+        }
+        .main div{
+            width:100px;
+            height:80px;
+            background:pink;
+            margin-right:10px;
+            float:left;
+        }  */
+    </style>
+</head>
+<body>
+    <!-- 1弹性 -->
+    <div class="main">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+        <div>7</div>
+        <div>8</div>
+    </div>
+
+    <!-- 2浮动 -->
+    <!-- <div class="main">
+        <section>
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+            <div>6</div>
+            <div>7</div>
+            <div>8</div>
+        </section>
+    </div> -->
+</body>
+</html>

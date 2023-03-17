@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>两列与三列布局</title>
+    <style>
+        /* 去掉预设 */
+        body{
+            margin:0;
+        }
+
+        /* 1弹性：两列 */
+        /* .main{
+            height:100vh;
+            background:skyblue;
+            display: flex;
+        }
+        .col1{
+            width:200px;
+            background:pink;
+        }
+        .col2{
+            flex-grow: 1;
+            background:springgreen;
+        }
+
+        /* 2弹性：三列 */
+        /* .main{
+            height:100vh;
+            background:skyblue;
+            display: flex;
+        }
+        .col1{
+            width:200px;
+            background:pink;
+        }
+        .col3{
+            width:100px;
+            background: tomato;
+        } */
+
+
+        /* 3浮动：两列 */
+        /* 1、要设置高度否则不显示 */
+        /* 2、第二列要自适应宽度，所以不能设置固定宽度，则利用同级前一个元素浮动，使后一个元素被覆盖的特点，后一个不需要设置浮动
+        让其在文档流中与父容器等宽度 */
+        /* 3、第二列需要处理被第一列覆盖的部分：设置margin-left等于第一列固定的宽度或触发BFC */
+        .main{
+            height:100vh;
+            background:skyblue;
+        }
+        .col1{
+            width:200px;
+            height:100%;
+            float:left;
+            background:pink;
+        }
+        .col2{
+            height:100%;
+            background:lightcoral;
+            margin-left:200px;
+           /*  overflow: hidden; */
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- 三列 -->
+    <!-- <div class="main">
+        <div class="col1"></div>
+        <div class="col2"></div>
+        <div class="col3"></div>
+    </div> -->
+
+    <!-- 两列 -->
+    <div class="main">
+        <div class="col1"></div>
+        <div class="col2"></div>
+    </div>
+</body>
+</html>

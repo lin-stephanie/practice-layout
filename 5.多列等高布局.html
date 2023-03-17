@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多列等高布局</title>
+    <style>
+        /* 1弹性 */
+        /* 当左侧一列被内容撑开后，右侧列高度也是相同 */
+        /* .main{
+            width:500px;
+            background:skyblue;
+            display: flex;
+            justify-content: space-between;
+        }
+        .main div{
+            width:100px;
+            background:pink;
+        } */
+
+
+        /* 2浮动 */
+        .main{
+            width:500px;
+            background:skyblue;
+            border: 1px black solid;
+            /* 1、利用触发BFC清除子元素浮动造成的高度塌陷影响且隐藏子元素溢出部分 */
+            overflow: hidden;
+        }
+        .main div{
+            width:100px;
+            background:pink;
+            float:left;
+            /* 2、通过内边距作为补充较短一列的内容高度，从而实现两列等高 */
+            /* 2、实际是内填充，高度是没有的 */
+            padding-bottom:2000px;
+            /* 3、由于上面多出来的内边距，需要抵消多余的部分 */
+            margin-bottom:-2000px;
+        }
+        .main div:nth-of-type(2){
+            float:right;
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- 1弹性 -->
+    <!-- <div class="main">
+        <div>
+            <p>测试内容</p>
+            <p>测试内容</p>
+            <p>测试内容</p>
+            <p>测试内容</p>
+        </div>
+        <div>
+            <p>测试内容</p>
+            <p>测试内容</p>
+            <p>测试内容</p>
+            <p>测试内容</p>
+            <p>测试内容</p>
+            <p>测试内容</p>
+        </div>
+    </div> -->
+
+    <!-- 2浮动 -->
+    <div class="main">
+        <div>
+            <p>测试内容</p>
+            <p>测试内容</p>
+            <p>测试内容</p>
+            <p>测试内容</p>
+        </div>
+        <div>
+            <p>测试内容</p>
+            <p>测试内容</p>
+            <p>测试内容</p>
+            <p>测试内容</p>
+            <p>测试内容</p>
+            <p>测试内容</p>
+        </div>
+    </div>
+</body>
+</html>

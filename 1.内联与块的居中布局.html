@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>内联与块的居中布局</title>
+    <style>
+        /* 块级含内联的上下居中 */
+        /* 1 */
+        /* .box {
+            width: 300px;
+            height: 200px;
+            background: skyblue;
+            display: flex;
+            align-items: center;
+        } */
+
+        /* 2 */
+        /* .box {
+            width: 300px;
+            height: 200px;
+            background: skyblue;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: center;
+        } */
+        
+        /* 3针对多行文字就不适用 */
+        /* .box {
+            width: 300px;
+            height: 200px;
+            background: skyblue;
+            line-height: 200px;
+        } */
+
+        /* 4将容器变成表格单元格，其支持vertical-align用于上下居中 */
+        /* .box {
+            width: 300px;
+            height: 200px;
+            background: skyblue;
+            display:table-cell;
+            vertical-align: middle;
+        } */
+
+
+        /* 块级含块级的上下左右居中 */
+        /* 1使用弹性 */
+        /* .box {
+            width: 300px;
+            height: 200px;
+            background: skyblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .box div{
+            width:100px;
+            height:100px;
+            background:pink;
+        } */
+
+        /* 2使用定位 */
+        /* .box {
+            width: 300px;
+            height: 200px;
+            background: skyblue;
+            position: relative;
+        }
+        .box div{
+            width:200px;
+            height:50px;
+            background:pink;
+            position: absolute;
+            left:50%;
+            top:50%;
+            transform: translate(-50%,-50%);
+        } */
+
+        /* 3在弹性下子元素使用margin:aoto能够实现上下左右的平分（不设置弹性上下不行） */
+        /* .box {
+            width: 300px;
+            height: 200px;
+            background: skyblue;
+            position: relative;
+            display: flex;
+        }
+        .box div{
+            width:200px;
+            height:50px;
+            background:pink;
+            margin:auto;
+        } */
+
+        /* 4使用子元素绝对定位，由于四个方向都为0，margin无法判断顶点就会使其四个方向都平分 */
+        .box {
+            width: 300px;
+            height: 200px;
+            background: skyblue;
+            position: relative;
+        }
+        .box div{
+            width:200px;
+            height:50px;
+            background:pink;
+            position: absolute;
+            left:0;
+            top:0;
+            right:0;
+            bottom:0;
+            margin:auto;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 块级含内联的上下居中 -->
+    <!-- <div class="box">
+        测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字测试文字
+    </div> -->
+
+    <!-- 块级含块级的上下左右居中 -->
+    <div class="box">
+        <div></div>
+    </div>
+</body>
+
+</html>

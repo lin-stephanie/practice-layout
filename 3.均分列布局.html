@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>均分列布局</title>
+    <style>
+        /* 1弹性 */
+        .main{
+            height:200px;
+            background:skyblue;
+            display: flex;
+            /* space-around|space-evenly：会根据屏幕分辨率自动做调整，有时候可能没有 space-between 的两端对齐或左右两个内边距是固定的 */
+            justify-content: space-between;  
+            align-items: flex-end;
+            padding:0 20px;
+        }
+        .main div{
+            width:30px;
+            height:30px;
+            background:pink;
+            border-radius: 50%;
+        }
+
+        /* 2浮动 */
+        /* 1、一级容器固定宽度下再设置margin-right */
+        /* 2、二级容器宽度相较于一级更大放下子元素 */
+        /* 3、避免溢出部分对外的影响加overflow */
+        /* 4、实现左右两边的内边距设置 */
+        /* .main{
+            width:500px;
+            height:200px;
+            background:skyblue;
+            overflow: hidden;
+            padding:0 20px;
+            box-sizing: border-box;
+        }
+        .main section{
+            width:600px;
+        }
+        .main div{
+            width:30px;
+            height:30px;
+            background:pink;
+            border-radius: 50%;
+            float:left;
+            margin-right:77px;
+        } */
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <!-- <div class="main">
+        <section>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </section>
+    </div> -->
+</body>
+</html>
