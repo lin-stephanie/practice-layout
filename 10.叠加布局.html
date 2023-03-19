@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>叠加布局</title>
+    <style>
+        /* 在网格布局中，如果元素在同一个网格单元或区域时就可以出现叠加效果 */
+        /* 在同一个网格单元或区域中，各网格子项可以调节其对齐方式来进行灵活的布局，并且 */
+        /* 如果是用定位实现，会根据内容多少决定尺寸因此需要自定义宽，而网格默认是自适应拉伸的 */
+        .main{
+            width: 530px;
+            height: 300px;
+            background:skyblue;
+            display: grid;
+        }
+        .main img{
+            grid-area: 1/1/1/1;
+        }
+        .main span{
+            grid-area: 1/1/1/1;
+            justify-self: end;
+            /* align-self: end; */
+            margin:5px;
+        }
+        .main p{
+            grid-area: 1/1/1/1;
+            align-self: center;
+            margin:0;
+            padding:0;
+            background:rgba(0,0,0,0.5);
+            height:30px;
+            line-height: 30px;
+            color:white;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <img src="./public/10.phone.png" alt="">
+        <span>自制</span>
+        <p>手机热卖中.....</p>
+    </div>
+</body>
+</html>

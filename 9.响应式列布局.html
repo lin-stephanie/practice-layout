@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>自适应列布局</title>
+    <title>响应式列布局</title>
     <style>
-        /* 根据不同分辨率，自适应列数（每行网格单元数）的布局 */
+        /* 根据不同视口分辨率，响应式列数量的布局 */
         .main{
             background:skyblue;
             display: grid;
-            /* 设置网格单元数自适应、网格单元限制最小值200px最大值自适应 */
+            /* 1、设置网格列数量自适应屏幕宽度、列宽限制最小值200px最大值自适应网格容器宽度（此时容器宽度随父元素即视口宽度） */
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            /* 显示网格的设置 */
+            /* 2、设置显示网格的行高固定：这里行数量只设置了1行 */
             grid-template-rows: 100px;
-            /* 从第二行开始是隐式网格，所以需要设置下面的属性 */
+            /* 3、设置隐式网格的行高固定：从第2行开始是隐式网格，所以需要设置下面的属性 */
             grid-auto-rows: 100px;
             grid-gap:20px 20px;
         }

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>容器内延展行列布局</title>
+    <style>
+
+        /* 行延展：容器宽固定，增加子项后仍然能够自适应增加行来往下顺序排列 */
+        /* 1、设置网格列数和自适应列宽：1行n列 */
+        /* 2、保持网格子项插入容器的方向是row，即折行插入 */
+        /* 3、设置隐式网格高度固定 */
+        /* .main{ 
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: 200px;
+            gap:5px;
+            width:300px;
+            background:skyblue;
+        }
+        .main div{
+            background:pink;
+        } */
+
+        /* 列延展：容器高固定，增加子项后仍然能够自适应增加列来往左顺序排列 */
+        /* 1、调整容器随内容撑开而不是随父元素：设置绝对定位（脱离文档流后具备内联盒子特性）、设置inline-grid（对外表现内联特性、对内表现网格容器）; */
+        /* 2、设置网格行数和自适应行高：n行1列  */
+        /* 3、修改网格子项插入容器的方向是column，即折列插入 */
+        /* 4、设置隐式网格宽度固定 */
+        .main{ 
+            display: inline-grid;
+            grid-template-rows: repeat(6, 1fr);
+            grid-auto-flow: column;
+            grid-auto-columns: 200px;
+            gap:5px;
+            height:300px;
+            background:skyblue;
+        }
+        .main div{
+            background:pink;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+    </div>
+</body>
+</html>
