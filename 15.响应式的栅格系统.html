@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>响应式的栅格系统</title>
+    <style>
+        /* 栅格系统：当视口宽度分辨率不满足断点时，对应的div就不具备指定的栅格布局，表现为默认的上下排列即各占一行 */
+        .row{
+            background:skyblue;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: 50px;
+            grid-auto-rows: 50px;
+        }
+        .row div{
+            background:pink;
+            border:1px black solid;
+            /* 【针对不满足断点的div】：栅格布局不生效，保持div默认行为上下排列即各占一行 */
+            /* 在网格布局中让一个div占满一行设置横跨12列 */
+            grid-area: auto/auto/auto/span 12;
+        }
+
+        /* 【针对第一行的div】 */
+        .row .col-1{
+            grid-area: auto/auto/auto/span 1;
+        }
+        .row .col-2{
+            grid-area: auto/auto/auto/span 2;
+        }
+        .row .col-3{
+            grid-area: auto/auto/auto/span 3;
+        }
+        .row .col-4{
+            grid-area: auto/auto/auto/span 4;
+        }
+        .row .col-5{
+            grid-area: auto/auto/auto/span 5;
+        }
+        .row .col-6{
+            grid-area: auto/auto/auto/span 6;
+        }
+        .row .col-7{
+            grid-area: auto/auto/auto/span 7;
+        }
+        .row .col-8{
+            grid-area: auto/auto/auto/span 8;
+        }
+        .row .col-9{
+            grid-area: auto/auto/auto/span 9;
+        }
+        .row .col-10{
+            grid-area: auto/auto/auto/span 10;
+        }
+        .row .col-11{
+            grid-area: auto/auto/auto/span 11;
+        }
+        .row .col-12{
+            grid-area: auto/auto/auto/span 12;
+        }
+
+        /* 【针对满足断点的div】：栅格布局生效 */
+        @media (min-width: 576px){
+            .row .col-sm-1{
+                grid-area: auto/auto/auto/span 1;
+            }
+            .row .col-sm-2{
+                grid-area: auto/auto/auto/span 2;
+            }
+            .row .col-sm-3{
+                grid-area: auto/auto/auto/span 3;
+            }
+            .row .col-sm-4{
+                grid-area: auto/auto/auto/span 4;
+            }
+            .row .col-sm-5{
+                grid-area: auto/auto/auto/span 5;
+            }
+            .row .col-sm-6{
+                grid-area: auto/auto/auto/span 6;
+            }
+            .row .col-sm-7{
+                grid-area: auto/auto/auto/span 7;
+            }
+            .row .col-sm-8{
+                grid-area: auto/auto/auto/span 8;
+            }
+            .row .col-sm-9{
+                grid-area: auto/auto/auto/span 9;
+            }
+            .row .col-sm-10{
+                grid-area: auto/auto/auto/span 10;
+            }
+            .row .col-sm-11{
+                grid-area: auto/auto/auto/span 11;
+            }
+            .row .col-sm-12{
+                grid-area: auto/auto/auto/span 12;
+            }
+        }
+
+        @media (min-width: 768px){
+            .row .col-md-1{
+                grid-area: auto/auto/auto/span 1;
+            }
+            .row .col-md-2{
+                grid-area: auto/auto/auto/span 2;
+            }
+            .row .col-md-3{
+                grid-area: auto/auto/auto/span 3;
+            }
+            .row .col-md-4{
+                grid-area: auto/auto/auto/span 4;
+            }
+            .row .col-md-5{
+                grid-area: auto/auto/auto/span 5;
+            }
+            .row .col-md-6{
+                grid-area: auto/auto/auto/span 6;
+            }
+            .row .col-md-7{
+                grid-area: auto/auto/auto/span 7;
+            }
+            .row .col-md-8{
+                grid-area: auto/auto/auto/span 8;
+            }
+            .row .col-md-9{
+                grid-area: auto/auto/auto/span 9;
+            }
+            .row .col-md-10{
+                grid-area: auto/auto/auto/span 10;
+            }
+            .row .col-md-11{
+                grid-area: auto/auto/auto/span 11;
+            }
+            .row .col-md-12{
+                grid-area: auto/auto/auto/span 12;
+            }
+        }
+
+        @media (min-width: 992px){
+            .row .col-lg-1{
+                grid-area: auto/auto/auto/span 1;
+            }
+            .row .col-lg-2{
+                grid-area: auto/auto/auto/span 2;
+            }
+            .row .col-lg-3{
+                grid-area: auto/auto/auto/span 3;
+            }
+            .row .col-lg-4{
+                grid-area: auto/auto/auto/span 4;
+            }
+            .row .col-lg-5{
+                grid-area: auto/auto/auto/span 5;
+            }
+            .row .col-lg-6{
+                grid-area: auto/auto/auto/span 6;
+            }
+            .row .col-lg-7{
+                grid-area: auto/auto/auto/span 7;
+            }
+            .row .col-lg-8{
+                grid-area: auto/auto/auto/span 8;
+            }
+            .row .col-lg-9{
+                grid-area: auto/auto/auto/span 9;
+            }
+            .row .col-lg-10{
+                grid-area: auto/auto/auto/span 10;
+            }
+            .row .col-lg-11{
+                grid-area: auto/auto/auto/span 11;
+            }
+            .row .col-lg-12{
+                grid-area: auto/auto/auto/span 12;
+            }
+        }
+
+        @media (min-width: 1200px){
+            .row .col-xl-1{
+                grid-area: auto/auto/auto/span 1;
+            }
+            .row .col-xl-2{
+                grid-area: auto/auto/auto/span 2;
+            }
+            .row .col-xl-3{
+                grid-area: auto/auto/auto/span 3;
+            }
+            .row .col-xl-4{
+                grid-area: auto/auto/auto/span 4;
+            }
+            .row .col-xl-5{
+                grid-area: auto/auto/auto/span 5;
+            }
+            .row .col-xl-6{
+                grid-area: auto/auto/auto/span 6;
+            }
+            .row .col-xl-7{
+                grid-area: auto/auto/auto/span 7;
+            }
+            .row .col-xl-8{
+                grid-area: auto/auto/auto/span 8;
+            }
+            .row .col-xl-9{
+                grid-area: auto/auto/auto/span 9;
+            }
+            .row .col-xl-10{
+                grid-area: auto/auto/auto/span 10;
+            }
+            .row .col-xl-11{
+                grid-area: auto/auto/auto/span 11;
+            }
+            .row .col-xl-12{
+                grid-area: auto/auto/auto/span 12;
+            }
+        }
+
+        /* 当不满足1400px的div就会变成上下排列 */
+        @media (min-width: 1400px){
+            .row .col-xxl-1{
+                grid-area: auto/auto/auto/span 1;
+            }
+            .row .col-xxl-2{
+                grid-area: auto/auto/auto/span 2;
+            }
+            .row .col-xxl-3{
+                grid-area: auto/auto/auto/span 3;
+            }
+            .row .col-xxl-4{
+                grid-area: auto/auto/auto/span 4;
+            }
+            .row .col-xxl-5{
+                grid-area: auto/auto/auto/span 5;
+            }
+            .row .col-xxl-6{
+                grid-area: auto/auto/auto/span 6;
+            }
+            .row .col-xxl-7{
+                grid-area: auto/auto/auto/span 7;
+            }
+            .row .col-xxl-8{
+                grid-area: auto/auto/auto/span 8;
+            }
+            .row .col-xxl-9{
+                grid-area: auto/auto/auto/span 9;
+            }
+            .row .col-xxl-10{
+                grid-area: auto/auto/auto/span 10;
+            }
+            .row .col-xxl-11{
+                grid-area: auto/auto/auto/span 11;
+            }
+            .row .col-xxl-12{
+                grid-area: auto/auto/auto/span 12;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 栅格系统的基础演示 -->
+   <!--  <div class="row">
+        <div class="col-3">col-3</div>
+        <div class="col-3">col-3</div>
+        <div class="col-3">col-3</div>
+        <div class="col-3">col-3</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">col-sm-3</div>
+        <div class="col-sm-3">col-sm-3</div>
+        <div class="col-sm-3">col-sm-3</div>
+        <div class="col-sm-3">col-sm-3</div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">col-md-3</div>
+        <div class="col-md-3">col-md-3</div>
+        <div class="col-md-3">col-md-3</div>
+        <div class="col-md-3">col-md-3</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3">col-lg-3</div>
+        <div class="col-lg-3">col-lg-3</div>
+        <div class="col-lg-3">col-lg-3</div>
+        <div class="col-lg-3">col-lg-3</div>
+    </div>
+    <div class="row">
+        <div class="col-xl-3">col-xl-3</div>
+        <div class="col-xl-3">col-xl-3</div>
+        <div class="col-xl-3">col-xl-3</div>
+        <div class="col-xl-3">col-xl-3</div>
+    </div>
+    <div class="row">
+        <div class="col-xxl-3">col-xxl-3</div>
+        <div class="col-xxl-3">col-xxl-3</div>
+        <div class="col-xxl-3">col-xxl-3</div>
+        <div class="col-xxl-3">col-xxl-3</div>
+    </div> -->
+
+    <!-- 栅格系统：实现最小瓶1行1列、小屏1行2列、中屏1行3列、大屏1行4列。。 -->
+    <div class="row">
+        <div class="col-xxl-3 col-lg-4 col-sm-6">col</div>
+        <div class="col-xxl-3 col-lg-4 col-sm-6">col</div>
+        <div class="col-xxl-3 col-lg-4 col-sm-6">col</div>
+        <div class="col-xxl-3 col-lg-4 col-sm-6">col</div>
+        <div class="col-xxl-3 col-lg-4 col-sm-6">col</div>
+        <div class="col-xxl-3 col-lg-4 col-sm-6">col</div>
+        <div class="col-xxl-3 col-lg-4 col-sm-6">col</div>
+        <div class="col-xxl-3 col-lg-4 col-sm-6">col</div>
+        <div class="col-xxl-3 col-lg-4 col-sm-6">col</div>
+        <div class="col-xxl-3 col-lg-4 col-sm-6">col</div>
+        <div class="col-xxl-3 col-lg-4 col-sm-6">col</div>
+        <div class="col-xxl-3 col-lg-4 col-sm-6">col</div>
+    </div>
+</body>
+</html>
