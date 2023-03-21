@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../assets/reset.css">
+    <link rel="stylesheet" href="./iconfont.css">
+    <style>
+        /* 整个容器 */
+        /* 宽：自适应视口宽度；高：自适应图片 */
+        /* 定位：相对定位，为满足与分页器、导航按钮形成叠加效果（父容器相对、子元素绝对则可以相对父容器设置偏移量 */
+        .swiper-container{
+            position: relative;
+        }
+
+        /* 主体 */
+        /* 布局：作为弹性容器，让子项默认从左到右排列 */
+        .swiper-wrapper{
+            display: flex;
+        }
+        /* 主体的每项：不收缩并设置宽度与父元素相同（高度会随宽度自适应），让后面子项溢出 */
+        .swiper-slide{
+            flex-shrink: 0;
+            width:100%;
+        }
+        /* 主体的图片：设置宽度与父元素相同，高度会随宽度自适应 */
+        .swiper-slide img{
+            width:100%;
+        }
+
+        /* 分页器 */
+        /* 定位：绝对定位，距离整个容器底部 */
+        /* 布局：作为弹性容器，让子项在两个方向居中 */
+        .swiper-pagination{
+            position: absolute;
+            bottom:0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 7.4667vw;
+            width: 100%;
+        }
+        /* 默认样式 */
+        .swiper-pagination-bullet{
+            width:2.1333vw;
+            height:2.1333vw;
+            margin:0 1.0667vw;
+            border-radius: 50%;
+            background:#c6bcaf;
+        }
+        /* 被选中的样式 */
+        .swiper-pagination-bullet-active{
+            background:white;
+        }
+
+        /* 导航按钮 */
+        /* 定位：绝对定位，距离整个容器顶部 */
+        /* 高：与父元素相同 */
+        /* 布局：作为弹性容器，让子项在交叉轴方向居中 */
+        .swiper-button-prev, .swiper-button-next{
+            position: absolute;
+            top:0;
+            height:100%;
+            display: flex;
+            align-items: center;
+        }
+        .swiper-button-prev{
+            left:0;
+        }
+        .swiper-button-next{
+            right:0;
+        }
+        .swiper-button-prev i, .swiper-button-next i{
+            font-size:6.4vw;
+            color:rgba(255,255,255,0.8);
+        }
+    </style>
+</head>
+<body>
+    <div class="swiper-container">
+        <!-- 轮播图主体 -->
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="./public/1.webp" alt=""></div>
+            <div class="swiper-slide"><img src="./public/2.webp" alt=""></div>
+            <div class="swiper-slide"><img src="./public/3.webp" alt=""></div>
+        </div>
+
+        <!-- 如果需要分页器（底部小点） -->
+        <div class="swiper-pagination">
+            <span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span>
+            <span class="swiper-pagination-bullet"></span>
+            <span class="swiper-pagination-bullet"></span>
+        </div>
+        
+        <!-- 如果需要导航按钮（左右箭头）:引入iconfont图标 -->
+        <div class="swiper-button-prev">
+            <i class="iconfont icon-swiperhoutui"></i>
+        </div>
+        <div class="swiper-button-next">
+            <i class="iconfont icon-swiperqianjin"></i>
+        </div>
+    </div>
+</body>
+</html>
+
+<!-- 注：通过在开发者工具中给.swiper-wrapper添加transition和transform模拟JS动画 -->
