@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>知乎导航</title>
+    <link rel="stylesheet" href="./iconfont.css">
+    <link rel="stylesheet" href="../assets/reset.css">
+    <style>
+        body{
+            background:#f6f6f6;
+        }
+        /* 区域容器 */
+        .header-container{
+            background:#ffffff;
+        }
+
+        /* header模块容器 */
+        /* 布局：作为弹性容器、子项默认左右排列、设置交叉轴方向居中 */
+        /* 尺寸：确定最小最大宽度：当视口宽度变小时，能够压缩搜索栏，但低于最小值右侧元素就会溢出看不见 */
+        /* 尺寸：外边距左右设置auto则多出空白会均分，产生居中效果 */
+        .header-wrapper{
+            display: flex;
+            align-items: center;
+            min-width:850px;
+            max-width:1156px;
+            height: 52px;
+            margin:0 auto;
+        }
+
+        /* 头部LOGO */
+        /* 尺寸：设置距离左侧导航的间距 */
+        .header-logo{
+            margin: 0 40px 0 10px;
+        }
+
+        /* 左侧导航 */
+        /* 布局：作为弹性容器，子项默认左右排列 */
+        .header-nav{
+            display: flex;
+        }
+        .header-nav li{
+            margin-right:30px;
+        }
+
+        /* 中间搜索框 */
+        /* 一级容器 */
+        /* 布局：作为弹性子项，当所有子项未占满容器时，设置该子项会拉伸占满剩下的空间 */
+        /* 布局：作为弹性容器，设置其子项主轴方向居中 */
+        .header-search{
+            flex-grow:1;
+            display: flex;
+            justify-content: center;
+        }
+        /* 二级容器 */
+        /* 布局：作为弹性子项，当所有子项未占满容器时，设置该子项会拉伸占满剩下的空间 */
+        /* 布局：作为弹性容器，让其中的输入框和放大镜左右排列，同时交叉轴居中、主轴两边分布 */
+        .header-search-wrapper{
+            flex-grow: 1;
+            display: flex;
+            align-items:center;
+            justify-content: space-between;
+            max-width:482px;
+            height:34px;
+            border-radius: 100px;
+            background:#f6f6f6;
+        }
+        /* 输入框 */
+        /* 布局：作为弹性子项，设置该子项会拉伸占满剩下的空间，则相当于设置输入框宽度100%（使得两个子项占满整个二级容器） */
+        /* 尺寸：控制光标不要父元素 */
+        .header-search-input{
+            /* width: 100%; */
+            box-sizing: border-box;
+            flex-grow: 1;
+            border:none;
+            margin:0 0 0 20px;
+            background:none;
+        }
+        /* 引入搜索图标 */
+        /* 尺寸：居中 */
+        .header-search-wrapper i{
+            margin:0 20px 0 10px;
+        }
+
+        /* 右侧按钮 */
+        /* 注意：buttom的border不会往外扩而是外内缩 */
+        /* 布局：作为弹性容器，由于buttom默认是inline-block，两个按钮之间会默认间隙，需要设置为block，同时作为弹性子项默认左右排列 */
+        .header-btn{
+            display: flex;
+        }
+        .header-btn-login{
+            display: block;
+            width:60px;
+            height:32px;
+            border:1px #0066ff solid;
+            border-radius: 3px;
+            margin-left:20px;
+            background:none;
+            cursor: pointer;
+            color:#0066ff;
+        }
+        .header-btn-zhihu{
+            display: block;
+            width:90px;
+            height:32px;
+            border:none;
+            border-radius: 3px;
+            margin:0 10px 0 20px;
+            background:#0066ff;
+            cursor: pointer;
+            color:white;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-logo">
+                <a href="#"><img src="./logo.png" alt=""></a>
+            </div>
+            <!-- 左侧导航 -->
+            <ul class="header-nav">
+                <li><a href="#">首页</a></li>
+                <li><a href="#">会员</a></li>
+                <li><a href="#">发现</a></li>
+                <li><a href="#">等你来答</a></li>
+            </ul>
+            <!-- 中间搜索框 -->
+            <div class="header-search">
+                <div class="header-search-wrapper">
+                    <input class="header-search-input" type="text" placeholder="520文案">
+                    <i class="iconfont icon-fangdajing"></i>
+                </div>
+            </div>
+            <!-- 右侧按钮 -->
+            <div class="header-btn">
+                <button class="header-btn-login">登录</button>
+                <button class="header-btn-zhihu">加入知乎</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<!-- 注：输入框中文字与左侧导航中文字的对齐？ -->
