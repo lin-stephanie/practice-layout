@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>百度热词风云榜</title>
+    <link rel="stylesheet" href="../assets/reset.css">
+    <style>
+        .top{
+            width:308px;
+            border:1px #dadadc solid;
+            margin:20px auto;
+        }
+
+        /* 上面部分 */
+        /* 布局：作为弹性容器,容易实现弹性子项(文字内容等)居中,通过行高也可以实现 */
+        /* 如果用div包裹则用font-weight加粗 */
+        .top-title{
+            display: flex;
+            align-items: center;
+            /* line-height: 30px; */
+            height:30px;
+            margin-left:15px;
+            font-size:14px;
+            /* font-weight: bold; */
+        }
+
+        /* 中间部分 */
+        /* 布局：作为网格容器，划分为4行3列，使用子项命名方式定义网格区域（同命名一定要呈矩形） */
+        .top-list{
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            grid-template-areas: 
+            "a1 a3 a3"
+            "a2 a3 a3"
+            "a4 a4 a5"
+            "a6 a7 a7";
+            gap: 8px;
+            height:352px;
+            margin: 0 14px;
+        }
+        .top-list div:nth-of-type(1){
+            grid-area: a1;
+        }
+        .top-list div:nth-of-type(2){
+            grid-area: a2;
+        }
+        .top-list div:nth-of-type(3){
+            grid-area: a3;
+        }
+        .top-list div:nth-of-type(4){
+            grid-area: a4;
+        }
+        .top-list div:nth-of-type(5){
+            grid-area: a5;
+        }
+        .top-list div:nth-of-type(6){
+            grid-area: a6;
+        }
+        .top-list div:nth-of-type(7){
+            grid-area: a7;
+        }
+        /* 中间部分的超链接 */
+        /* 布局：a标签默认为内联，转为块级盒子设置宽高到父容器，使整个网格区域都能有超链接的效果 */
+        .top-list a{
+            display: block;
+            width:100%;
+            height:100%;
+            color:white;
+            line-height: 30px;
+        }
+        .top-list h3{
+            text-align: right;
+            margin-right: 4px;
+        }
+        .top-list p{
+            text-align: center;
+        }
+
+        /* 下面部分 */
+        /* 布局：作为弹性容器，设置其中的弹性子项在主轴方向靠右即flex-end、交叉轴方向居中 */
+        .top-page{
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            height:40px;
+            margin:0 10px;   
+        }
+        .top-page a{
+            border:1px #cbcbcb solid;
+            margin-left:2px;
+            padding:3px 4px;
+        }
+        .top-page span{
+            padding:3px 4px;
+        }
+
+        /* 设置单元网格样式 */
+        .theme1{
+            background-image: linear-gradient(#187fe6, #32aff2);
+            border:1px #2a9adc solid;
+        }
+        .theme2{
+            background-image: linear-gradient(#f2246c, #fe5bac);
+            border:1px #da2061 solid;
+        }
+        .theme3{
+            background-image: linear-gradient(#d46300, #e5ad1c);
+            border:1px #cd9818 solid;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="top">
+        <h2 class="top-title">
+            今日上榜
+        </h2>
+        <div class="top-list">
+            <div class="theme1">
+                <a href="#">
+                    <h3>实时热点</h3>
+                    <p>阿里第一颗芯</p>
+                </a>
+            </div>
+            <div class="theme2">
+                <a href="#">
+                    <h3>实时热点</h3>
+                    <p>阿里第一颗芯</p>
+                </a>
+            </div>
+            <div class="theme1">
+                <a href="#">
+                    <h3>实时热点</h3>
+                    <p>阿里第一颗芯</p>
+                </a>
+            </div>
+            <div class="theme1">
+                <a href="#">
+                    <h3>实时热点</h3>
+                    <p>阿里第一颗芯</p>
+                </a>
+            </div>
+            <div class="theme1">
+                <a href="#">
+                    <h3>实时热点</h3>
+                    <p>阿里第一颗芯</p>
+                </a>
+            </div>
+            <div class="theme3">
+                <a href="#">
+                    <h3>实时热点</h3>
+                    <p>阿里第一颗芯</p>
+                </a>
+            </div>
+            <div class="theme3">
+                <a href="#">
+                    <h3>实时热点</h3>
+                    <p>阿里第一颗芯</p>
+                </a>
+            </div>
+        </div>
+        <div class="top-page">
+            <span>1</span>
+            <a href="#">2</a>
+            <a href="#">3</a>
+        </div>
+    </div>
+</body>
+</html>
