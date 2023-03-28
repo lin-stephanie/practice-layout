@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网易移动端新闻列表</title>
+    <link rel="stylesheet" href="./assets/iconfont/iconfont.css">
+    <link rel="stylesheet" href="./assets/reset.css">
+    <style>
+        /* 在iphone6下等价于100px */
+        html{
+            font-size:26.666667vw;
+        }
+        /* 重置文字大小 */
+        body{
+            font-size: 0.16rem;
+        }
+        a{
+            color: #34372e;
+        }
+
+        /* 头部 */
+        /* 布局：作为弹性容器、设置弹性子项交叉轴居中、主轴两端对齐 */
+        .head{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 0.43rem;                    /* 设计图86px/2=43px 根据100px换算rem为0.43rem */
+            padding: 0 0.1rem;
+            background: #ef1b1a;
+            color: white;
+        }
+        
+        /* 设置两边的部分占20%，则中间LOGO占50% */
+        /* 调整文字大小 */
+        .head-user, .head-email{
+            width: 25%;
+            font-size: 0.14rem;
+        }
+        /* 设置LOGO在中间50%处水平居中 */
+        .head-logo{
+            width: 50%;
+            text-align: center;
+        }
+        .head-email{
+            text-align: right;
+        }
+        /* 调整图标大小，注意不要加在父元素样式上，因为继承优先级最低 */
+        .head i {
+            font-size: 0.18rem;
+        }
+        /* 调整图片高度大小 */
+        .head-logo img{
+            height: 0.21rem;
+        }
+
+        /* 主导航 */
+        /* 布局：作为弹性容器，设置子项交叉轴居中、 主轴空白围绕（如果不设置这个，可以在子项中设置扩展比例1、其中文字水平居中）*/
+        .nav{
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            height: 0.46rem;
+            border-bottom: 0.005rem #ededed solid;
+            padding:0 0.1rem;
+            font-size: 0.18rem;
+        }
+        /* 布局：相对定位，让子元素的伪类（实现选中时的红色下划线）设置为绝对定位进行布局 */
+        .nav li{
+            position: relative;
+            /* flex-grow: 1;
+            text-align: center; */
+        }
+        /* 设置链接文字颜色 */
+        .nav li.active a{
+            color: #ef191b;
+        }
+        /* 布局：绝对定位 */
+        .nav li.active::after{
+            content: "";
+            position: absolute;
+            left:50%;
+            bottom:-0.12rem;
+            width: 0.15rem;
+            height: 0.02rem;
+            margin-left: -0.07rem;
+            background: #ef191b;
+        }
+
+        /* 副导航 */
+        /* 布局：相对定位，因为该容器中包含一个箭头图标需要用绝对定位布局 */
+        .nav-sub{
+            position: relative;
+            padding: 0.11rem 0.1rem 0.07rem 0.1rem;
+            background: #f8f8f8;
+        }
+        /* 状态：列表全部展开的样式 */
+        /* 布局：作为网格容器。因为是多行多列的，则设置5列自适应、插入行高35px */
+        .nav-sub-list__open{
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-auto-rows: 0.35rem;
+        }
+        /* 布局：绝对定位，定位参数需要相对于父容器的右下角进行设置，即再多加行后也能保持在最后一行的同样位置 */
+        /* 状态：设置箭头在打开状态下朝下 */
+        .nav-sub-arrow{
+            position: absolute;
+            right: 0.1rem;
+            bottom: 0.2rem;
+            transform: rotate(180deg);
+        }
+        /* 状态：列表不全部展开的样式【在JS中通过控制.nav-sub-list__closed类就可以实现列表的展开和折叠的效果】 */
+        /* 设置固定为两行的高度，溢出部分隐藏；箭头朝下 */
+        .nav-sub-list__closed{
+            height: 0.7rem;
+            overflow: hidden;
+        }
+        /* 状态：设置箭头在关闭状态朝下 */
+        /* 兄弟选择器：用 + 则选中前一个元素紧邻的一个兄弟元素 */
+        .nav-sub-list__closed + .nav-sub-arrow{
+            transform: rotate(0deg);
+        }
+
+        /* 新闻1 */
+        .news{
+            padding: 0 0.1rem;
+        }
+        .news-title{
+            font-size: 0.18rem;
+            line-height: 0.66rem;
+        }
+        /* 设置item之间的间距25px */
+        .news-item{
+            margin-bottom: 0.25rem;
+        }
+        /* 设置每个item中title和info之间间距8px */
+        /* 设置h1-h5不加粗：font-weight: 400(即normal)，700bold */
+        .news-item-title{
+            width: 2.95rem;
+            margin-bottom: 0.08rem;
+            font-size: 0.17rem;
+            font-weight: 400;
+            line-height: 0.22rem;
+        }
+        .news-item-info{
+            font-size: 0.12rem;
+            color: #b3b4b6;
+        }
+        /* 由于img套在div里面，则div的高度总会比img的高度多3px，需要将img转为block解决 */
+        .news-item-img img{
+            display: block;
+            width: 100%;
+            margin-top: 0.05px;
+            margin-bottom: 0.09rem;
+        }
+
+        /* 新闻2 */
+        /* 布局：作为弹性容器，固定其中img弹性子项的宽度、content弹性子项扩展満剩余空间 */
+        .news2-item{
+            display: flex;
+            height: 0.70rem;
+            padding: 0.1rem;
+            border-top: 0.005rem #f6f7f9 solid;
+        }
+        /* 布局：设置扩展比例自适应剩余的弹性容器中的空间 */
+        .news2-item-content{
+            flex-grow: 1;
+            margin-right: 0.15rem;
+        }
+        .news2-item-title{
+            margin-bottom: 0.08rem;
+            font-size: 0.17rem;
+            font-weight: 400;
+            line-height: 0.22rem;
+        }
+        /* 布局：作为弹性容器，设置子项交叉轴居中、主轴两端对齐 */
+        .news2-item-info{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.12rem;
+            color: #b3b4b6;
+        }
+        /* 布局：固定其中img弹性子项的宽度 */
+        .news2-item-img{
+            width: 1.17rem;
+        }
+        /* 设置图片宽高到父元素，且图片通过剪裁等比填充父容器 */
+        .news2-item-img img{
+            width:100%;
+            height:100%;
+            display: block;
+            object-fit: cover;
+        }
+        .app{
+            border:0.005rem #fbbab8 solid;
+            border-radius: 1rem;
+            padding:0.02rem 0.05rem;
+            color: #fb1515;
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部 -->
+    <div class="head">
+        <div class="head-user">
+            <i class="iconfont icon-yonghu"></i>
+        </div>
+        <div class="head-logo">
+            <img src="./assets/img/logo.png" alt="">
+        </div>
+        <div class="head-email">
+            <i class="iconfont icon-youxiang"></i>
+            邮箱
+            <i class="iconfont icon-jiantou"></i>
+        </div>
+    </div>
+    <!-- 主导航 -->
+    <ul class="nav">
+        <li class="active">
+            <a href="#">要闻</a>
+        </li>
+        <li>
+            <a href="#">推荐</a>
+        </li>
+        <li>
+            <a href="#">原创</a>
+        </li>
+        <li>
+            <a href="#">热点</a>
+        </li>
+    </ul>
+    <!-- 附导航 -->
+    <div class="nav-sub">
+        <ul class="nav-sub-list__open nav-sub-list__closed">
+            <li>
+                <a href="#">新闻</a>
+            </li>
+            <li>
+                <a href="#">抗疫</a>
+            </li>
+            <li>
+                <a href="#">娱乐</a>
+            </li>
+            <li>
+                <a href="#">体育</a>
+            </li>
+            <li>
+                <a href="#">财经</a>
+            </li>
+            <li>
+                <a href="#">新闻</a>
+            </li>
+            <li>
+                <a href="#">抗疫</a>
+            </li>
+            <li>
+                <a href="#">娱乐</a>
+            </li>
+            <li>
+                <a href="#">体育</a>
+            </li>
+            <li>
+                <a href="#">财经</a>
+            </li>
+            <li>
+                <a href="#">新闻</a>
+            </li>
+            <li>
+                <a href="#">抗疫</a>
+            </li>
+            <li>
+                <a href="#">娱乐</a>
+            </li>
+            <li>
+                <a href="#">体育</a>
+            </li>
+            <li>
+                <a href="#">财经</a>
+            </li>
+        </ul>
+        <div class="nav-sub-arrow">
+            <i class="iconfont icon-down-arrow"></i>
+        </div>
+    </div>
+    <!-- 新闻1 -->
+    <div class="news">
+        <h2 class="news-title">今日要闻</h2>
+        <div class="news-item">
+            <h3 class="news-item-title">测试文字测试文字</h3>
+            <p class="news-item-info">央视网 1小时前 879跟帖</p>
+        </div>
+        <div class="news-item">
+            <h3 class="news-item-title">测试文字测试文字</h3>
+            <p class="news-item-info">央视网 1小时前 879跟帖</p>
+        </div>
+        <div class="news-item">
+            <h3 class="news-item-title">测试文字测试文字测试文字测试文字测试文字测试文字</h3>
+            <!-- 图片img是内联盒子放在div块级盒子下方便设置宽高（但这里也可以不加div) -->
+            <div class="news-item-img"><img src="./img/news.jpg" alt=""></div>
+            <p class="news-item-info">央视网 1小时前 879跟帖</p>
+        </div>
+    </div>
+    <!-- 新闻2 -->
+    <div class="news2">
+        <div class="news2-item">
+            <div class="news2-item-content">
+                <h3 class="news2-item-title">测试文字测试文字</h3>
+                <p class="news2-item-info">
+                    <span>上游新闻 2287跟贴</span>
+                    <span class="app">打开APP</span>
+                </p>
+            </div>
+            <div class="news2-item-img">
+                <img src="./assets/img/news2.jpg" alt="">
+            </div>
+        </div>
+        <div class="news2-item">
+            <div class="news2-item-content">
+                <h3 class="news2-item-title">测试文字测试文字</h3>
+                <p class="news2-item-info">
+                    <span>上游新闻 2287跟贴</span>
+                    <span class="app">打开APP</span>
+                </p>
+            </div>
+            <div class="news2-item-img">
+                <img src="./assets/img/news3.jpg" alt="">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
