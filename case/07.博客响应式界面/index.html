@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客响应式界面</title>
+    <link rel="stylesheet" href="./assets/iconfont/iconfont.css">
+    <link rel="stylesheet" href="./assets/reset.css">
+    <style>
+        /* 媒体查询编写顺序：移动优先 */
+        /* 全局设置：背景色、链接颜色、--container变量默认为100% */
+        :root{
+            --container: 100%;
+        }
+        body{
+            background: #ebebeb;
+        }
+        a{
+            color: #505050;
+        }
+
+        /* 头部 */
+        /* 布局：作为弹性容器，让其中的LOGO图片居中 */
+        .head{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 190px;
+            background: white;
+        }
+        .head-logo{
+            width: 250px;
+        }
+
+        /* 导航 */
+        .nav{
+            padding: 0 15px;
+            border-top: 1px #ebebeb solid;
+            border-bottom: 2px #e1e1e1 solid;
+            background: white;
+
+        }
+        /* 布局：作为弹性容器，让其中的导航按钮作为弹性子项居中 */
+        .nav-bar{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 56px;
+        }
+        .nav-bar i{
+            cursor: pointer;
+        }
+        /* 交互：导航列表一开始不展示 */
+        .nav-list{
+            display: none;
+        }
+        /* 布局：相对定位，让其中被选中时的下划线能够进行绝对定位 */
+        /* 注意：li标签中的文字设置行高等于高度进行垂直居中 */
+        .nav-list li{
+            position: relative;
+            padding:0 21px;
+            height: 56px;
+            font-size: 16px;
+            line-height: 56px;
+        }
+        /* 布局：绝对定位，选中时对下划线进行左下的绝对定位 */
+        .nav-list li.active::after{
+            position: absolute;
+            left:0;
+            bottom:0;
+            content: "";
+            width: 100%;
+            height: 2px;
+            background: #e67e22;
+        }
+        /* 交互：input不展示仅用于控制导航列表的显示隐藏 */
+        .nav-toggle{
+            display: none;
+        }
+        /* 交互：选择在选中状态下的checkout类型input元素的紧临兄弟元素，即被选中的导航列表，修改为块级元素就可以显示出来 */
+        .nav-toggle:checked + .nav-list{
+            display: block;
+        }
+
+        /* 主体 */
+        /* 盒子：该为怪异盒子，让content向内缩 */
+        /* 尺寸：利用var函数调用--container变量，当通过媒体查询将变量修改为某个值后主区宽度就会固定 */
+        /* 布局：让其中的文章内容等子元素水平居中 */
+        /* 注意：由于这里已经将主区布局通过.row设元素为网格容器,所以不能再用display:flex+justify-content来让其中的内容水平居中 */
+        .main{
+            box-sizing: border-box;
+            width: var(--container);
+            padding: 0 15px;
+            margin: 0 auto;
+        }
+        /* 主区 */
+        /* 字体：其中子元素行高继承为1.5 */
+        .main-article{
+            padding: 35px;
+            margin-top: 35px;
+            background: white;
+            line-height: 1.5;
+        }
+        /* 字体：改为 normal 400 不加粗、水平居中 */
+        .main-article h2{
+            font-size: 25px;
+            font-weight: 400;
+            text-align: center;
+        }
+        .main-article div{
+            color: #959595;
+            text-align: center;
+        }
+        .main-article p{
+            margin-top:25px;
+            font-size:18px;
+        }
+        .main-article button{
+            padding:10px;
+            border: none;
+            margin: 30px 0;
+            background: #e67e22;
+            color: white;
+            cursor: pointer;
+        }
+        .main-article section{
+            padding-top:20px;
+            border-top:1px #ebebeb solid;
+        }
+        .main-article section i{
+            margin-right: 10px;
+        }
+        /* 副区 */
+        .main-aside{
+            padding:35px;
+            margin-top:35px;
+            background: white;
+        }
+        /* 布局：相对定位，要设置下划线的绝对定位 */
+        .main-aside h3{
+            position: relative;
+            padding-bottom: 10px;
+            border-bottom: 1px #cccccc solid;
+            font-size: 20px;
+            font-weight: 400;
+        }
+        /* 布局：绝对定位，设置左下角 */
+        .main-aside h3::after{
+            position: absolute;
+            left:0;
+            bottom:-1px;
+            content:"";
+            width: 90px;
+            height: 1px;
+            background: #e67e22;
+        }
+        .main-aside p{
+            margin-top:30px;
+        }
+        .main-aside button{
+            width: 100%;
+            padding:10px;
+            border:none;
+            margin-top: 30px;
+            background: #e67e22;
+            color: white;
+            cursor: pointer;
+        }
+        .main-aside div {
+            margin-top: 30px;
+        }
+        /* 尺寸：注意a标签默认display:inline，修改为inline-block，多个a标签之间能够左右排列并且不会换行，同时可以设置宽高、上下padding、border */
+        .main-aside div a{
+            display: inline-block;
+            border:1px #ebebeb solid;
+            padding:5px 10px;
+            margin:11px 7px 0 0;
+        }
+
+        /* 底部 */
+        .foot{
+            padding-top: 35px;
+            margin-top: 35px;
+            background: #202020;
+        }
+        /* 布局：让其中的内容水平居中 */
+        /* 尺寸：利用var函数调用--container变量设置为宽度，当通过媒体查询将变量修改为某个值后主区宽度就会固定 */
+        .foot-wrapper{
+            width: var(--container);
+            margin: 0 auto;
+        }
+        .foot-item{
+            padding: 0 30px;
+            margin-bottom: 30px;
+        }
+        .foot-item h3{
+            position: relative;
+            padding-bottom: 10px;
+            border-bottom: 1px #cccccc solid;
+            color: white;
+            font-size: 22px;
+            font-weight: 400;
+        }
+        .foot-item h3::after{
+            position: absolute;
+            left:0;
+            bottom:-1px;
+            content:"";
+            width: 90px;
+            height: 1px;
+            background: #e67e22;
+        }
+        .foot-item div{
+            margin-top: 20px;
+        }
+        .foot-item div a{
+            display: inline-block;
+            margin:10px;
+            color: #959595;
+        }
+
+        /* 版权 */
+        .copyright{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80px;
+            background: #111111;
+            color: #555555;
+        }
+
+
+        /* 栅格系统：12列自适应 */
+        .row{
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+        }
+        /* 选择器：类名为.row的父元素下class属性值包含col的子元素 */
+        .row>[class*="col"]{
+            grid-area: auto/auto/auto/span 12;
+        }
+        .row .col-1{
+            grid-area: auto/auto/auto/span 1;
+        }
+        .row .col-2{
+            grid-area: auto/auto/auto/span 2;
+        }
+        .row .col-3{
+            grid-area: auto/auto/auto/span 3;
+        }
+        .row .col-4{
+            grid-area: auto/auto/auto/span 4;
+        }
+        .row .col-5{
+            grid-area: auto/auto/auto/span 5;
+        }
+        .row .col-6{
+            grid-area: auto/auto/auto/span 6;
+        }
+        .row .col-7{
+            grid-area: auto/auto/auto/span 7;
+        }
+        .row .col-8{
+            grid-area: auto/auto/auto/span 8;
+        }
+        .row .col-9{
+            grid-area: auto/auto/auto/span 9;
+        }
+        .row .col-10{
+            grid-area: auto/auto/auto/span 10;
+        }
+        .row .col-11{
+            grid-area: auto/auto/auto/span 11;
+        }
+        .row .col-12{
+            grid-area: auto/auto/auto/span 12;
+        }
+
+        /* 媒体查询 */
+        @media (min-width: 576px){
+            .row .col-sm-1{
+                grid-area: auto/auto/auto/span 1;
+            }
+            .row .col-sm-2{
+                grid-area: auto/auto/auto/span 2;
+            }
+            .row .col-sm-3{
+                grid-area: auto/auto/auto/span 3;
+            }
+            .row .col-sm-4{
+                grid-area: auto/auto/auto/span 4;
+            }
+            .row .col-sm-5{
+                grid-area: auto/auto/auto/span 5;
+            }
+            .row .col-sm-6{
+                grid-area: auto/auto/auto/span 6;
+            }
+            .row .col-sm-7{
+                grid-area: auto/auto/auto/span 7;
+            }
+            .row .col-sm-8{
+                grid-area: auto/auto/auto/span 8;
+            }
+            .row .col-sm-9{
+                grid-area: auto/auto/auto/span 9;
+            }
+            .row .col-sm-10{
+                grid-area: auto/auto/auto/span 10;
+            }
+            .row .col-sm-11{
+                grid-area: auto/auto/auto/span 11;
+            }
+            .row .col-sm-12{
+                grid-area: auto/auto/auto/span 12;
+            }
+        }
+        /* 在宽度分辨率大于768小于992px逻辑像素时 */
+        @media (min-width: 768px){
+            /* 隐藏导航栏 */
+            .nav-bar{
+                display: none;
+            }
+            /* 显示导航列表 */
+            /* 布局：作为弹性容器，其中的子项沿主轴居中 */
+            /* 注意：加important是优先级不够，上面的.nav-toggle:checked + .nav-list优先级高 。 */
+            .nav-list{
+                display: flex !important;
+                justify-content: center;
+                /* justify-items: center; */
+            }
+            .row .col-md-1{
+                grid-area: auto/auto/auto/span 1;
+            }
+            .row .col-md-2{
+                grid-area: auto/auto/auto/span 2;
+            }
+            .row .col-md-3{
+                grid-area: auto/auto/auto/span 3;
+            }
+            .row .col-md-4{
+                grid-area: auto/auto/auto/span 4;
+            }
+            .row .col-md-5{
+                grid-area: auto/auto/auto/span 5;
+            }
+            .row .col-md-6{
+                grid-area: auto/auto/auto/span 6;
+            }
+            .row .col-md-7{
+                grid-area: auto/auto/auto/span 7;
+            }
+            .row .col-md-8{
+                grid-area: auto/auto/auto/span 8;
+            }
+            .row .col-md-9{
+                grid-area: auto/auto/auto/span 9;
+            }
+            .row .col-md-10{
+                grid-area: auto/auto/auto/span 10;
+            }
+            .row .col-md-11{
+                grid-area: auto/auto/auto/span 11;
+            }
+            .row .col-md-12{
+                grid-area: auto/auto/auto/span 12;
+            }
+        }
+        /* 在宽度分辨率大于922小于1200px逻辑像素时 */
+        @media (min-width: 992px){
+            /* 3/5.主体底部响应式：在该情况下修改--container变量值为940，即会固定宽度（注意主体改为怪异盒子所以是padding+weight+border=940) */
+            :root{
+                --container: 940px;
+            }
+            /* 3/4.主副区响应式：类名为.row的父元素下class属性值包含col的子元素，设置左右内边距，让在该情况下主区和副区能够间隔开 */
+            .row>[class*="col"]{
+                padding: 0 15px;
+            }
+            .row .col-lg-1{
+                grid-area: auto/auto/auto/span 1;
+            }
+            .row .col-lg-2{
+                grid-area: auto/auto/auto/span 2;
+            }
+            .row .col-lg-3{
+                grid-area: auto/auto/auto/span 3;
+            }
+            .row .col-lg-4{
+                grid-area: auto/auto/auto/span 4;
+            }
+            .row .col-lg-5{
+                grid-area: auto/auto/auto/span 5;
+            }
+            .row .col-lg-6{
+                grid-area: auto/auto/auto/span 6;
+            }
+            .row .col-lg-7{
+                grid-area: auto/auto/auto/span 7;
+            }
+            .row .col-lg-8{
+                grid-area: auto/auto/auto/span 8;
+            }
+            .row .col-lg-9{
+                grid-area: auto/auto/auto/span 9;
+            }
+            .row .col-lg-10{
+                grid-area: auto/auto/auto/span 10;
+            }
+            .row .col-lg-11{
+                grid-area: auto/auto/auto/span 11;
+            }
+            .row .col-lg-12{
+                grid-area: auto/auto/auto/span 12;
+            }
+        }
+        /* 在宽度分辨率大于1200小于1400px逻辑像素时 */
+        @media (min-width: 1200px){
+            /* 3/5.主体底部响应式：在该情况下修改--container变量值为1160px，即会固定宽度（注意主体改为怪异盒子所以是padding+weight+border=1160) */ 
+            :root{
+                --container: 1160px;
+            }
+            /* 3/4.主副区响应式：选择器：类名为.row的父元素下class属性值包含col的子元素，设置左右内边距，让在该情况下主区和副区能够间隔开 */
+            .row>[class*="col"]{
+                padding: 0 15px;
+            }
+            .row .col-xl-1{
+                grid-area: auto/auto/auto/span 1;
+            }
+            .row .col-xl-2{
+                grid-area: auto/auto/auto/span 2;
+            }
+            .row .col-xl-3{
+                grid-area: auto/auto/auto/span 3;
+            }
+            .row .col-xl-4{
+                grid-area: auto/auto/auto/span 4;
+            }
+            .row .col-xl-5{
+                grid-area: auto/auto/auto/span 5;
+            }
+            .row .col-xl-6{
+                grid-area: auto/auto/auto/span 6;
+            }
+            .row .col-xl-7{
+                grid-area: auto/auto/auto/span 7;
+            }
+            .row .col-xl-8{
+                grid-area: auto/auto/auto/span 8;
+            }
+            .row .col-xl-9{
+                grid-area: auto/auto/auto/span 9;
+            }
+            .row .col-xl-10{
+                grid-area: auto/auto/auto/span 10;
+            }
+            .row .col-xl-11{
+                grid-area: auto/auto/auto/span 11;
+            }
+            .row .col-xl-12{
+                grid-area: auto/auto/auto/span 12;
+            }
+        }
+
+        @media (min-width: 1400px){
+            .row .col-xxl-1{
+                grid-area: auto/auto/auto/span 1;
+            }
+            .row .col-xxl-2{
+                grid-area: auto/auto/auto/span 2;
+            }
+            .row .col-xxl-3{
+                grid-area: auto/auto/auto/span 3;
+            }
+            .row .col-xxl-4{
+                grid-area: auto/auto/auto/span 4;
+            }
+            .row .col-xxl-5{
+                grid-area: auto/auto/auto/span 5;
+            }
+            .row .col-xxl-6{
+                grid-area: auto/auto/auto/span 6;
+            }
+            .row .col-xxl-7{
+                grid-area: auto/auto/auto/span 7;
+            }
+            .row .col-xxl-8{
+                grid-area: auto/auto/auto/span 8;
+            }
+            .row .col-xxl-9{
+                grid-area: auto/auto/auto/span 9;
+            }
+            .row .col-xxl-10{
+                grid-area: auto/auto/auto/span 10;
+            }
+            .row .col-xxl-11{
+                grid-area: auto/auto/auto/span 11;
+            }
+            .row .col-xxl-12{
+                grid-area: auto/auto/auto/span 12;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部 -->
+    <div class="head">
+        <img class="head-logo" src="./assets/img/ghost-logo.png" alt="">
+    </div>
+    <!-- 导航 -->
+    <div class="nav">
+        <!-- 导航栏 -->
+        <div class="nav-bar">
+            <!-- 交互：用lable包裹要扩大点击范围对应的元素 -->
+            <label for="nav-toggle">
+                <i class="iconfont icon-zhedie"></i>
+            </label>
+        </div>
+        <!-- 交互：通过input标签的checkbox类型控制列表的显示隐藏 -->
+        <!-- 注意：要在需要控制显示隐藏的列表的上方加，为了配合样式编写中选择器的写法，来控制导航列表的展示 -->
+        <input id="nav-toggle" class="nav-toggle" type="checkbox">
+        <!-- 导航列表 -->
+        <ul class="nav-list">
+            <li class="active"><a href="#">首页</a></li>
+            <li><a href="#">论坛</a></li>
+            <li><a href="#">快捷手册</a></li>
+            <li><a href="#">中文文档</a></li>
+            <li><a href="#">关于</a></li>
+        </ul>
+    </div>
+    <!-- 主体 -->
+    <!-- 1.主体响应式：加上一个父元素类名row作为网格容器引入栅格系统，给子元素加响应式 -->
+    <div class="main row">
+        <!-- 2.主区响应式：加上一个子类名col-lg-8(即在大于992下占8列即2/3) -->
+        <div class="col-lg-8">
+            <!-- 文章1 -->
+            <div class="main-article">
+                <h2>
+                    全新的 Ghost 文档上线
+                </h2>
+                <div>
+                    <span>作者：王赛</span> • <span>2018年11月20日</span>
+                </div>
+                <p>
+                    我们的整个 Ghost 文档 已经全新改版了！并且添加了一些新的补充，包括使用教程和功能集成。 新文档的目标是帮助更多人有效地安装并管理他们发布的内容，并且最大限度地发挥 Ghost 作为一个开源发布平台的灵活性。文档的设计和结构已经修订完毕，我们的改进包括 Ghost 安装和设
+                </p>
+                <button>阅读全文</button>
+                <section>
+                    <i class="iconfont icon-wenjianjia"></i>
+                    <a href="#">Android</a>，
+                    <a href="#">客户端</a>
+                </section>
+            </div>
+            <!-- 文章2 -->
+            <div class="main-article">
+                <h2>
+                    全新的 Ghost 文档上线
+                </h2>
+                <div>
+                    <span>作者：王赛</span> • <span>2018年11月20日</span>
+                </div>
+                <p>
+                    我们的整个 Ghost 文档 已经全新改版了！并且添加了一些新的补充，包括使用教程和功能集成。 新文档的目标是帮助更多人有效地安装并管理他们发布的内容，并且最大限度地发挥 Ghost 作为一个开源发布平台的灵活性。文档的设计和结构已经修订完毕，我们的改进包括 Ghost 安装和设
+                </p>
+                <button>阅读全文</button>
+                <section>
+                    <i class="iconfont icon-wenjianjia"></i>
+                    <a href="#">Android</a>，
+                    <a href="#">客户端</a>
+                </section>
+            </div>
+            <!-- 文章3 -->
+            <div class="main-article">
+                <h2>
+                    全新的 Ghost 文档上线
+                </h2>
+                <div>
+                    <span>作者：王赛</span> • <span>2018年11月20日</span>
+                </div>
+                <p>
+                    我们的整个 Ghost 文档 已经全新改版了！并且添加了一些新的补充，包括使用教程和功能集成。 新文档的目标是帮助更多人有效地安装并管理他们发布的内容，并且最大限度地发挥 Ghost 作为一个开源发布平台的灵活性。文档的设计和结构已经修订完毕，我们的改进包括 Ghost 安装和设
+                </p>
+                <button>阅读全文</button>
+                <section>
+                    <i class="iconfont icon-wenjianjia"></i>
+                    <a href="#">Android</a>，
+                    <a href="#">客户端</a>
+                </section>
+            </div>
+        </div>
+        <!-- 3.副区响应式：加上一个子类名col-lg-4(即在大于992下占4列即1/3)-->
+        <div class="col-lg-4">
+            <div class="main-aside">
+                <h3>声明</h3>
+                <p>Ghost 中文版不再继续维护，请去官方下载。</p>
+            </div>
+            <div class="main-aside">
+                <h3>下载</h3>
+                <button>Ghost最新版</button>
+            </div>
+            <div class="main-aside">
+                <h3>标签云</h3>
+                <div>
+                    <a href="#">客户端</a>
+                    <a href="#">Android</a>
+                    <a href="#">jQuery</a>
+                    <a href="#">Ghost 0.7 版本</a>
+                    <a href="#">开源</a>
+                    <a href="#">助手函数</a>
+                    <a href="#">客户端</a>
+                    <a href="#">客户端</a>
+                    <a href="#">Android</a>
+                    <a href="#">jQuery</a>
+                    <a href="#">Ghost 0.7 版本</a>
+                    <a href="#">开源</a>
+                    <a href="#">助手函数</a>
+                    <a href="#">客户端</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 底部 -->
+    <div class="foot">
+        <!-- 5.底部响应式：加上一个父元素类名row作为网格容器引入栅格系统，给子元素加响应式 -->
+        <div class="foot-wrapper row">
+            <!-- 6.底部响应式：加上一个子类名col-lg-4(即在大于992下占4列即1/3) -->
+            <div class="foot-item col-lg-4">
+                <h3>友链</h3>
+                <div>
+                    <a href="#">Bootstrap中文网</a>
+                    <a href="#">React</a>
+                    <a href="#">Vue.js</a>
+                    <a href="#">Svelte</a>
+                    <a href="#">Preact</a>
+                    <a href="#">Babel</a>
+                    <a href="#">Webpack</a>
+                    <a href="#">Rollup.js</a>
+                    <a href="#">Bootstrap中文网</a>
+                    <a href="#">React</a>
+                    <a href="#">Vue.js</a>
+                    <a href="#">Svelte</a>
+                    <a href="#">Preact</a>
+                    <a href="#">Babel</a>
+                    <a href="#">Webpack</a>
+                    <a href="#">Rollup.js</a>
+                </div>
+            </div>
+             <!-- 6.底部响应式：加上一个子类名col-lg-4(即在大于992下占4列即1/3) -->
+            <div class="foot-item col-lg-4">
+                <h3>标签云</h3>
+                <div>
+                    <a href="#">客户端</a>
+                    <a href="#">Android</a>
+                    <a href="#">jQuery</a>
+                    <a href="#">Ghost 0.7 版本</a>
+                    <a href="#">开源</a>
+                    <a href="#">助手函数</a>
+                    <a href="#">客户端</a>
+                    <a href="#">客户端</a>
+                    <a href="#">Android</a>
+                    <a href="#">jQuery</a>
+                    <a href="#">Ghost 0.7 版本</a>
+                    <a href="#">开源</a>
+                    <a href="#">助手函数</a>
+                    <a href="#">客户端</a>
+                </div>
+            </div>
+             <!-- 6.底部响应式：加上一个子类名col-lg-4(即在大于992下占4列即1/3) -->
+            <div class="foot-item col-lg-4">
+                <h3>合作伙伴</h3>
+                <div>
+                    <a href="#">腾讯</a>
+                    <a href="#">阿里巴巴</a>
+                    <a href="#">百度</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 版权 -->
+    <div class="copyright">
+        <p>Copyright © Ghost中文网 | 京ICP备11008151号-11 | 京公网安备11010802014853</p>
+    </div>
+</body>
+</html>
